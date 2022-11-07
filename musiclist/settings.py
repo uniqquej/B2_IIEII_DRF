@@ -1,7 +1,24 @@
 from pathlib import Path
 from datetime import timedelta
+import os, json
+from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read()) #json 파일 읽어오기
+
+def get_secret(setting, secrets = secrets):
+    try:
+        print("check :", secrets[setting])
+        return secrets[setting]
+    except KeyError:
+        error_msg = 'set the {} environment varible'.format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_secret("SECRET_KEY")
 
 
 
