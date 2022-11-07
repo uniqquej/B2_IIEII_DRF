@@ -1,5 +1,5 @@
 venv
-secret_key.json
+secrets.json
 .idea/
 # Byte-compiled / optimized / DLL files
 __pycache__/
